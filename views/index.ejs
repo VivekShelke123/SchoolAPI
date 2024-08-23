@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolManager</title>
+</head>
+<body>
+    <div>
+        <h1>Welcome To The SchoolManager API</h1>
+    </div>
+    <br>
+    <div>
+        <h3>Add School in The List</h3>
+        <form action="/addSchool" method="post">
+            <table>
+                <tr>
+                    <td>Name</td><td><input type="text" name="Name" required></td>
+                </tr>
+                <tr>
+                    <td>address:</td><td><input type="text" name="Addr" required></td>
+                </tr>
+                <tr>
+                    <td>Latitude</td><td><input type="number" name="Lat" required></td>
+                </tr>
+                <tr>
+                    <td>Latitude</td><td><input type="number" name="Lon" required></td>
+                </tr>
+            </table>
+            <input type="submit" placeholder="Submit">
+        </form>
+    </div>
+    <div>
+        <h3>School List</h3>
+        <form action="/listSchools" method="get">
+            <tr>
+                <td>Latitude</td><td><input type="number" name="latitude" required></td>
+            </tr>
+            <tr>
+                <td>Latitude</td><td><input type="number" name="longitude" required></td>
+            </tr>
+        </table>
+        <input type="submit" placeholder="Submit">
+        </form>
+    </div>
+</body>
+</html>
