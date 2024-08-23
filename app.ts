@@ -12,7 +12,7 @@ const pool = mysql.createPool({
     password:process.env.password,
     database:process.env.database,
 })
-
+console.log(process.env.host,process.env.user);
 //defining APP And middleware function
 
 export const app = express();

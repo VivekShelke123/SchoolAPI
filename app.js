@@ -48,7 +48,8 @@ var pool = mysql.createPool({
     password: process.env.password,
     database: process.env.database,
 });
-//defining APP And middleware functions
+console.log(process.env.host, process.env.user);
+//defining APP And middleware function
 exports.app = express();
 exports.app.use(bodyParser.urlencoded({ extended: true }));
 //definning home action 
