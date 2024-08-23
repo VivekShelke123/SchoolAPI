@@ -28,11 +28,11 @@ app.get('/', (req: express.Request, res: express.Response) => {
 //definning  /addSchool 
 
 app.post('/addSchool', async (req:express.Request , res:express.Response)=>{
-    const { Name , Addr , Lat , Lon } = req.body;
-    const latitude = parseInt(Lat);
-    const longitude = parseInt(Lon);
+    const { name , address , latitude , longitude } = req.body;
+    const latitude1 = parseInt(latitude);
+    const longitude1 = parseInt(longitude);
 
-    if (!Name || !Addr || typeof latitude !== 'number' || typeof longitude !== 'number') {
+    if (!name || !address || typeof latitude1 !== 'number' || typeof longitude1 !== 'number') {
         return res.status(400).json({ 
             success : false,
             error: 'Invalid input data' 
@@ -42,7 +42,7 @@ app.post('/addSchool', async (req:express.Request , res:express.Response)=>{
     try {
         const [result] = await pool.execute(
             'INSERT INTO schoollist (name, address, latitude, longitude) VALUES (?, ?, ?, ?)',
-            [Name , Addr , latitude , longitude ]
+            [name , address , latitude1 , longitude1]
         );
         res.status(201).json({ 
             success : true,
