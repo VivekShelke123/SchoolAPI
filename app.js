@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
+require('dotenv').config();
 var express = require("express");
 var bodyParser = require("body-parser");
 var mysql = require("mysql2/promise");
@@ -57,14 +58,15 @@ exports.app.get('/', function (req, res) {
 });
 //definning  /addSchool 
 exports.app.post('/addSchool', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, Name, Addr, Lat, Lon, latitude, longitude, result, error_1;
+    var _a, name, address, latitude, longitude, latitude1, longitude1, result, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _a = req.body, Name = _a.Name, Addr = _a.Addr, Lat = _a.Lat, Lon = _a.Lon;
-                latitude = parseInt(Lat);
-                longitude = parseInt(Lon);
-                if (!Name || !Addr || typeof latitude !== 'number' || typeof longitude !== 'number') {
+                console.log(req.body);
+                _a = req.body, name = _a.name, address = _a.address, latitude = _a.latitude, longitude = _a.longitude;
+                latitude1 = parseInt(latitude);
+                longitude1 = parseInt(longitude);
+                if (!name || !address || typeof latitude1 !== 'number' || typeof longitude1 !== 'number') {
                     return [2 /*return*/, res.status(400).json({
                             success: false,
                             error: 'Invalid input data'
@@ -73,7 +75,7 @@ exports.app.post('/addSchool', function (req, res) { return __awaiter(void 0, vo
                 _b.label = 1;
             case 1:
                 _b.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, pool.execute('INSERT INTO schoollist (name, address, latitude, longitude) VALUES (?, ?, ?, ?)', [Name, Addr, latitude, longitude])];
+                return [4 /*yield*/, pool.execute('INSERT INTO schoollist (name, address, latitude, longitude) VALUES (?, ?, ?, ?)', [name, address, latitude1, longitude1])];
             case 2:
                 result = (_b.sent())[0];
                 res.status(201).json({
@@ -127,6 +129,13 @@ exports.app.get('/listSchools', function (req, res) { return __awaiter(void 0, v
                 return [4 /*yield*/, pool.execute('SELECT * FROM schoollist')];
             case 2:
                 schools = (_a.sent())[0];
+                if (!schools) {
+                    res.send("<h1> No School Added Yet </h1>");
+                    res.status(200).json({
+                        success: true,
+                        message: 'No School Added Yet',
+                    });
+                }
                 sortedSchools = schools.sort(function (a, b) {
                     var distanceA = calculateDistance(userLatitude, userLongitude, a.latitude, a.longitude);
                     var distanceB = calculateDistance(userLatitude, userLongitude, b.latitude, b.longitude);

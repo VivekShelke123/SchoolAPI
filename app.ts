@@ -28,6 +28,7 @@ app.get('/', (req: express.Request, res: express.Response) => {
 //definning  /addSchool 
 
 app.post('/addSchool', async (req:express.Request , res:express.Response)=>{
+    console.log(req.body);
     const { name , address , latitude , longitude } = req.body;
     const latitude1 = parseInt(latitude);
     const longitude1 = parseInt(longitude);
@@ -91,6 +92,14 @@ app.get('/listSchools', async (req:express.Request,res:express.Response)=>{
 
     try {
         const [schools]: any[] = await pool.execute('SELECT * FROM schoollist');
+
+        if(!schools){
+            res.send("<h1> No School Added Yet </h1>");
+            res.status(200).json({
+                success: true,
+                message:'No School Added Yet',
+            });
+        }
 
         const sortedSchools = schools.sort((a: any, b: any) => {
             const distanceA = calculateDistance(userLatitude, userLongitude, a.latitude, a.longitude);
