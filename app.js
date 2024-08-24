@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.app = void 0;
-require('dotenv').config();
+require('dotenv').config({ path: '.env.local' });
 var express = require("express");
 var bodyParser = require("body-parser");
 var mysql = require("mysql2/promise");

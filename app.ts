@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path :'.env.local'});
 
 import express = require('express');
 import bodyParser = require('body-parser');
@@ -12,7 +12,7 @@ const pool = mysql.createPool({
     password:process.env.password,
     database:process.env.database,
 })
-console.log(process.env.host,process.env.user);
+
 //defining APP And middleware function
 
 export const app = express();
@@ -30,8 +30,8 @@ app.get('/', (req: express.Request, res: express.Response) => {
 app.post('/addSchool', async (req:express.Request , res:express.Response)=>{
     console.log(req.body);
     const { name , address , latitude , longitude } = req.body;
-    const latitude1 = parseInt(latitude);
-    const longitude1 = parseInt(longitude);
+    const latitude1 = parseFloat(latitude);
+    const longitude1 = parseFloat(longitude);
 
     if (!name || !address || typeof latitude1 !== 'number' || typeof longitude1 !== 'number') {
         return res.status(400).json({ 
